@@ -1,7 +1,7 @@
 # fcnResNetmOCR
 Repository for the Paper "Occupancy Grid Generation with Dynamic Obstacle Segmentation in Stereo Images"
 
-*Semantic segmentation results on Mapillary Vistas Dataset:*
+*Semantic segmentation results of various trained deep networks on Mapillary Vistas Dataset:*
 <img src="imgs/Segmentation_examples.jpg" width="100%">
 
 # OpenTaganrog Dataset
