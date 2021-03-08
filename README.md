@@ -1,4 +1,4 @@
-# fcnResNetmOCR
+# fcnResNetmOCR - Real time segmentation for occupancy grid generation
 Repository for the Paper "Occupancy Grid Generation with Dynamic Obstacle Segmentation in Stereo Images"
 
 *Semantic segmentation results of various trained deep networks on Mapillary Vistas Dataset:*
