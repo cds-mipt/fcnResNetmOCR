@@ -18,9 +18,14 @@ Custom  OpenTaganrog  dataset consists of rosbag-archives. They include  point  
     sh tools/train.sh
 ```
 
-***Visualization***
+***Saving predicted masks***
 ```shell
     sh tools/vis.sh
+```
+
+***Visualization***
+```shell
+    sh vis_utils/run_vis.sh
 ```
 
 ***Evaluation of model***
