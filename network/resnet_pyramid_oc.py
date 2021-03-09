@@ -1,3 +1,5 @@
+# based on: https://github.com/openseg-group/OCNet.pytorch/tree/master/oc_module
+
 from torch import nn
 
 from pyramid_oc_block import Pyramid_OC_Module

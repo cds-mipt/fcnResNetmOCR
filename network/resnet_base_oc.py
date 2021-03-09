@@ -1,3 +1,5 @@
+# based on: https://github.com/openseg-group/OCNet.pytorch/tree/master/oc_module
+
 from torch import nn
 
 from base_oc_block import BaseOC_Module
@@ -78,6 +80,7 @@ class ResNet(nn.Module):
 def get_resnet18_base_oc_dsn(num_classes=21):
     model = ResNet(Bottleneck, [2, 2, 2, 2], num_classes)
     return model
+
 
 def get_resnet34_base_oc_dsn(num_classes=21):
     model = ResNet(Bottleneck, [3, 4, 6, 3], num_classes)

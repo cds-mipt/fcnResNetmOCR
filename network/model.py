@@ -4,6 +4,7 @@ from torch import nn
 import torch.nn.functional as F
 from collections import OrderedDict
 
+
 from .base_oc_block import BaseOC_Module
 from .pyramid_oc_block import Pyramid_OC_Module
 from .asp_oc_block import ASP_OC_Module
@@ -61,16 +62,11 @@ class ResNet_Base_OC(nn.Module):
     def forward(self, x):
         input_shape = x.shape[-2:]
         
-        # print('input: ', x.shape)
         x = self.backbone(x)['out']
-        # print('backbone: ', x.shape)
         x = self.context(x)
-        # print('context: ', x.shape)
         x = self.cls(x)
-        # print('cls: ', x.shape)
         x = F.interpolate(x, size=input_shape, mode='bilinear', align_corners=True)
-        # print('output: ', x.shape)
-        
+
         result = OrderedDict()
         result['out'] = x
         
@@ -126,34 +122,15 @@ class ResNet_ASP_OC(nn.Module):
         return result
 
 
-def get_resnet34_base_oc_layer2(num_classes=66, pretrained_backbone=False):
-    backbone_name = 'resnet34'
-    replace_stride_with_dilation = [False, False, False]
-    inplanes_scale_factor = 4
-
-    backbone = torchvision.models.resnet.__dict__[backbone_name](pretrained=pretrained_backbone,
-                                                                 replace_stride_with_dilation=replace_stride_with_dilation)
-    
-    return_layers = {'layer2': 'out'}
-    inplanes = 512 // inplanes_scale_factor
-    outplanes = 256
-    
-    backbone = IntermediateLayerGetter(backbone, return_layers=return_layers)
-    model = ResNet_Base_OC(backbone, inplanes, outplanes, num_classes)
-    
-    return model
-
-
 def get_resnet34_base_oc_layer3(num_classes=66, pretrained_backbone=False):
     backbone_name = 'resnet34'
     replace_stride_with_dilation = [False, False, False]
-    inplanes_scale_factor = 4
-    
+
     backbone = torchvision.models.resnet.__dict__[backbone_name](pretrained=pretrained_backbone,
                                                                  replace_stride_with_dilation=replace_stride_with_dilation)
     
     return_layers = {'layer3': 'out'}
-    inplanes = 1024 // inplanes_scale_factor
+    inplanes = 256
     outplanes = 512
     
     backbone = IntermediateLayerGetter(backbone, return_layers=return_layers)
@@ -162,56 +139,20 @@ def get_resnet34_base_oc_layer3(num_classes=66, pretrained_backbone=False):
     return model
 
 
-def get_resnet34_pyramid_oc_layer2(num_classes=66, pretrained_backbone=False):
-    backbone_name = 'resnet34'
-    replace_stride_with_dilation=[False, False, False]
-    inplanes_scale_factor = 4
-    
-    backbone = torchvision.models.resnet.__dict__[backbone_name](pretrained=pretrained_backbone,
-                                                                 replace_stride_with_dilation=replace_stride_with_dilation)
-    
-    return_layers = {'layer2': 'out'}
-    inplanes = 512 // inplanes_scale_factor
-    outplanes = 128
-    
-    backbone = IntermediateLayerGetter(backbone, return_layers=return_layers)
-    model = ResNet_Pyramid_OC(backbone, inplanes, outplanes, num_classes)
-    
-    return model
-
-
 def get_resnet34_pyramid_oc_layer3(num_classes=66, pretrained_backbone=False):
     backbone_name = 'resnet34'
-    replace_stride_with_dilation=[False, False, False]
+    replace_stride_with_dilation = [False, False, False]
     inplanes_scale_factor = 4
     
     backbone = torchvision.models.resnet.__dict__[backbone_name](pretrained=pretrained_backbone,
                                                                  replace_stride_with_dilation=replace_stride_with_dilation)
     
     return_layers = {'layer3': 'out'}
-    inplanes = 1024 // inplanes_scale_factor
+    inplanes = 256
     outplanes = 256
     
     backbone = IntermediateLayerGetter(backbone, return_layers=return_layers)
     model = ResNet_Pyramid_OC(backbone, inplanes, outplanes, num_classes)
-    
-    return model
-
-
-def get_resnet34_asp_oc_layer2(num_classes=66, pretrained_backbone=False):
-    backbone_name = 'resnet34'
-    replace_stride_with_dilation=[False, False, False]
-    inplanes_scale_factor = 4
-    
-    backbone = torchvision.models.resnet.__dict__[backbone_name](pretrained=pretrained_backbone,
-                                                                 replace_stride_with_dilation=replace_stride_with_dilation)
-    
-    return_layers = {'layer2': 'out'}
-    inplanes = 512 // inplanes_scale_factor
-    outplanes = 256
-    
-    backbone = IntermediateLayerGetter(backbone, return_layers=return_layers)
-    model = ResNet_ASP_OC(backbone, inplanes, outplanes, num_classes)
     
     return model
 
@@ -232,6 +173,7 @@ def get_resnet34_asp_oc_layer3(num_classes=66, pretrained_backbone=False):
     model = ResNet_ASP_OC(backbone, inplanes, outplanes, num_classes)
     
     return model
+
 
 class ResNet18_model(nn.Module):
     def __init__(self, backbone, inplanes, outplanes, num_classes):

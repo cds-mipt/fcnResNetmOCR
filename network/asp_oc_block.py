@@ -1,6 +1,5 @@
-'''
-based on: https://github.com/openseg-group/OCNet.pytorch/tree/master/oc_module
-'''
+# based on: https://github.com/openseg-group/OCNet.pytorch/tree/master/oc_module
+
 import torch
 from torch import nn
 from torch.autograd import Variable

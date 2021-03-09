@@ -1,3 +1,5 @@
+# based on: https://github.com/openseg-group/OCNet.pytorch/tree/master/oc_module
+
 from torch import nn
 import torch.nn.functional as F
 from collections import OrderedDict

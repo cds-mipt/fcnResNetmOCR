@@ -22,10 +22,7 @@ from torch.utils.tensorboard import SummaryWriter
 import torchvision
 
 
-from datasets.apolloscapes import ApolloscapesLaneSegmentation
 from datasets.mapillary import MapillarySegmentation
-from datasets.mseg import SemData
-
 import transforms as T
 from tools import utils
 
@@ -95,11 +92,7 @@ def parse_args():
 # load desired dataset
 #
 def get_dataset(name, path, image_set, transform):
-    paths = {
-        "apolloscapes": (path, ApolloscapesLaneSegmentation, 26),
-        "mapillary": (path, MapillarySegmentation, 66),
-        "mseg": (path, SemData, 194)
-    }
+    paths = {"mapillary": (path, MapillarySegmentation, 66)}
     p, ds_fn, num_classes = paths[name]
 
     ds = ds_fn(p, image_set=image_set, transforms=transform)
@@ -321,7 +314,7 @@ def main(args):
 
         dataset_test_vis, _ = get_dataset(name=args.dataset,
                                           path="",
-                                          image_set="val",
+                                          image_set="test",
                                           transform=get_transform(train=False, resolution=resolution))
 
         data_loader_test_vis = torch.utils.data.DataLoader(dataset_test_vis,
