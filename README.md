@@ -11,3 +11,24 @@ Custom  OpenTaganrog  dataset consists of rosbag-archives. They include  point  
 
 *Image samples from OpenTaganrog dataset:*
 <img src="imgs/OpenTaganrog_samples.jpg" width="100%">
+
+## Network
+***Training***
+```shell
+    sh tools/train.sh
+```
+
+***Visualization***
+```shell
+    sh tools/vis.sh
+```
+
+***Evaluation of model***
+```shell
+    sh tools/eval.sh
+```
+
+***Evaluation from two directories***
+```shell
+    python eval/get_iou_metric.py
+```
